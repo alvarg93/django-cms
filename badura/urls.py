@@ -16,12 +16,20 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from store import views as store
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'users', store.UserViewSet)
+router.register(r'users', store.GroupViewSet)
+router.register((r'books'), store.BookViewSet)
 
 urlpatterns = [
+    url(r'^api/', include(router.urls)),
     url('', include('registration.backends.default.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^$', store.index, name="index"),
     url(r'^test/(?P<text>\w{0,50})/?$', store.test, name="test",),
     url(r'^books/', store.books, name="books"),
     url('', include('social.apps.django_app.urls', namespace='social')),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

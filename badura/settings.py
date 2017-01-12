@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'social.apps.django_app.default',
     'store',
     'registration',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -125,6 +126,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+            'rest_framework.renderers.JSONRenderer',
+            'rest_framework.renderers.BrowsableAPIRenderer',
+        ],
+    'PAGE_SIZE':10
+}
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    )
+}
 STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/'

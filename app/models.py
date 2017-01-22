@@ -3,28 +3,39 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
 
-
-class Book(models.Model):
-    title = models.CharField(max_length=200)
-    author = models.CharField(max_length=200)
-    description = models.TextField()
-    publish_date = models.DateField(default=timezone.now)
-    price = models.DecimalField(max_digits=8, decimal_places=2)
-    stock = models.IntegerField(default=0)
-    year = models.IntegerField(default=1970)
-
-
-class Boot(models.Model):
-    brand = models.CharField(max_length=200)
-    name = models.CharField(max_length=200)
-    description = models.TextField()
-    size = models.IntegerField()
-    price = models.DecimalField(max_digits=8, decimal_places=2)
-
-
 class Post(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=200)
     content = models.TextField()
     exerpt = models.TextField(default="")
     created_at = models.DateTimeField(default=timezone.now)
+    is_published = models.BooleanField(default=False)
+
+
+def duplicate(modeladmin, request, queryset):
+    for object in queryset:
+        object.id = None
+        if hasattr(object, 'created_at'):
+            object.created_at = timezone.now()
+        object.save()
+
+
+duplicate.short_description = "Duplicate selected record"
+
+
+def publish(modeladmin, request, queryset):
+    for object in queryset:
+        object.is_published = True
+        object.save()
+
+
+publish.short_description = "Publish selected posts"
+
+
+def unpublish(modeladmin, request, queryset):
+    for object in queryset:
+        object.is_published = False
+        object.save()
+
+
+unpublish.short_description = "Unpublish selected posts"

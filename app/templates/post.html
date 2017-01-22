@@ -1,14 +1,21 @@
 {% extends 'base.html' %}
-{% block title %}
-{{post.title}}
-{% endblock %}
-{% block subtitle %}
-{{post.exerpt}}
-{% endblock %}
-{% block title_author %}
-<span class="meta">Posted by <a href="#">{{post.author}}</a> on {{post.created_at}}</span>
+{% block heading %}
+<div class="post-heading">
+    <h1>{{post.title}}</h1>
+    <h2 class="subheading">{{post.exerpt}}</h2>
+    <span class="meta">Posted by <a href="#">{{post.author}}</a> on {{post.created_at}}</span>
+</div>
 {% endblock %}
 {% block content %}
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                {{post.content|safe}}
+            </div>
+        </div>
+    </div>
+</article>
 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <!--{% if request.user.is_authenticated %}-->
     <!--{% if request.user.first_name %}-->
@@ -19,24 +26,10 @@
     <!--{% else %}-->
     <!--<h1>Witaj towarzyszu!</h1>-->
     <!--{% endif %}-->
-    {% for post in posts %}
-    <div class="post-preview">
-        <a href="post.html">
-            <h2 class="post-title">
-                {{post.title}}
-            </h2>
-            <h3 class="post-subtitle">
-                {{post.exerpt|safe}}
-            </h3>
-        </a>
-        <p class="post-meta">Posted by <a href="#">{{post.author}}</a> on {{post.created_at}}</p>
-    </div>
-    <hr>
-    {% endfor %}
     <!-- Pager -->
     <ul class="pager">
         <li class="next">
-            <a href="#">All Posts &rarr;</a>
+            <a href="{% url 'posts' %}">All Posts &rarr;</a>
         </li>
     </ul>
 </div>

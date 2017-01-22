@@ -21,15 +21,24 @@
                 {{post.exerpt|safe}}
             </h3>
         </a>
-        <p class="post-meta">Posted by <a href="#">{{post.author}}</a> on {{post.created_at}}</p>
     </div>
     <hr>
     {% endfor %}
     <!-- Pager -->
     <ul class="pager">
+        {% if posts.has_next %}
         <li class="next">
-            <a href="{% url 'posts' %}">All Posts &rarr;</a>
+            <a href="?page={{ posts.next_page_number }}">Next Posts &rarr;</a>
         </li>
+        {% endif %}
+        <li class="next">
+            <span class="post-meta">Page {{ posts.number }} of {{ posts.paginator.num_pages }}.</span>
+        </li>
+        {% if posts.has_previous %}
+        <li class="next">
+            <a href="?page={{ posts.previous_page_number }}">&larr; Previous Posts</a>
+        </li>
+        {% endif %}
     </ul>
 </div>
 {% endblock %}

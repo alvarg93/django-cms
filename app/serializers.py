@@ -2,7 +2,7 @@ from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, BasePermission
 
-from app.models import Book, Post
+from app.models import Post
 
 
 class CustomUpdatePermission(BasePermission):
@@ -24,19 +24,10 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'username', 'email', 'groups')
         permission_classes = [CustomUpdatePermission]
 
-
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
         fields = ('url', 'name')
-
-
-class BookSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Book
-        fields = ('title', 'author', 'year')
-        permission_classes = [IsAuthenticatedOrReadOnly]
-
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

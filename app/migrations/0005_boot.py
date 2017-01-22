@@ -6,9 +6,8 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('store', '0004_book_year'),
+        ('app', '0004_book_year'),
     ]
 
     operations = [

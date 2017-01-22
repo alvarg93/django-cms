@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+</head>
+<body>
+You have {{books.count}} book{{books.count|pluralize}}!
+
+<ul>
+    {% for book in books %}
+    <li>{{book.title}} | {{book.author}} | {{book.description}} | {{book.price}} | {{book.stock}} | {{book.year}}</li>
+    {% endfor %}
+</ul>
+</body>
+</html>

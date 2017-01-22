@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
-
+{% block title %}
+{{post.title}}
+{% endblock %}
+{% block subtitle %}
+{{post.exerpt}}
+{% endblock %}
+{% block title_author %}
+<span class="meta">Posted by <a href="#">{{post.author}}</a> on {{post.created_at}}</span>
+{% endblock %}
 {% block content %}
 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <!--{% if request.user.is_authenticated %}-->
@@ -13,7 +21,7 @@
     <!--{% endif %}-->
     {% for post in posts %}
     <div class="post-preview">
-        <a href="{% url 'post' post.id %}">
+        <a href="post.html">
             <h2 class="post-title">
                 {{post.title}}
             </h2>

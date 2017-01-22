@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Books</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
 You have {{books.count}} book{{books.count|pluralize}}!
 
 <ul>
@@ -12,5 +7,5 @@ You have {{books.count}} book{{books.count|pluralize}}!
     <li>{{book.title}} | {{book.author}} | {{book.description}} | {{book.price}} | {{book.stock}} | {{book.year}}</li>
     {% endfor %}
 </ul>
-</body>
-</html>
+
+{% endblock %}

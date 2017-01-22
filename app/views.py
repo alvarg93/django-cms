@@ -4,7 +4,7 @@ from django.shortcuts import render
 from rest_framework import viewsets
 
 from serializers import UserSerializer, GroupSerializer, BookSerializer
-from .models import Book
+from .models import Book, Post
 
 
 # Create your views here.
@@ -13,30 +13,28 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by("-date_joined")
     serializer_class = UserSerializer
 
-
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-
 
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
-
 def index(request):
-    return render(request, 'index.html')
-
+    posts = Post.objects.all().order_by('-created_at')[:5]
+    return render(request, 'index.html', {"posts": posts})
 
 def test(request, text):
     return HttpResponse(text)
 
 
-def books(request):
-    books = Book.objects.all()
-    return render(request, 'books.html', {"books": books})
+# def posts(request):
+#     posts = Post.objects.all()
+#     return render(request, 'index.html', {"posts": posts})
 
-
-def booksAngular(request):
-    books = Book.objects.all()
-    return render(request, 'booksAngular.html', {"books": books})
+def post(request, post_id):
+    posts = Post.objects.all().filter(id=post_id)
+    if not posts:
+        return index(request)
+    return render(request, 'post.html', {"posts": posts})

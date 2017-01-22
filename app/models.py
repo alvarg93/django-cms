@@ -20,3 +20,11 @@ class Boot(models.Model):
     description = models.TextField()
     size = models.IntegerField()
     price = models.DecimalField(max_digits=8, decimal_places=2)
+
+
+class Post(models.Model):
+    title = models.CharField(max_length=200)
+    author = models.CharField(max_length=200)
+    content = models.TextField()
+    exerpt = models.TextField(default="")
+    created_at = models.DateTimeField(default=timezone.now)

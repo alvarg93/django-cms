@@ -27,6 +27,7 @@ router.register(r'posts', views.PostViewSet)
 urlpatterns = [
     url(r'^api/', include(router.urls)),
     url('', include('registration.backends.default.urls'), name="auth"),
+    url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name="index"),
     url(r'^posts/$', views.posts, name="posts"),

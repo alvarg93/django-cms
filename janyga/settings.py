@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-
+    'social.apps.django_app.default',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -64,6 +64,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
             ],
         },
     },
@@ -143,20 +145,8 @@ EMAIL_HOST_PASSWORD = '2d8eef14f2d046'
 EMAIL_PORT = '2525'
 
 AUTHENTICATION_BACKENDS = (
-    # 'social.backends.facebook.FacebookOAuth2',
-    # 'social.backends.google.GoogleOAuth2',
-    # 'social.backends.twitter.TwitterOAuth',
+    'social.backends.facebook.FacebookOAuth2',
+    'social.backends.google.GoogleOAuth2',
+    'social.backends.twitter.TwitterOAuth',
     'django.contrib.auth.backends.ModelBackend',
 )
-
-SOCIAL_AUTH_FACEBOOK_KEY = '207995449654256'
-SOCIAL_AUTH_FACEBOOK_SECRET = 'f01b4dbe5cfdfebb4590235a9b901b91'
-
-SOCIAL_AUTH_TWITTER_KEY = 'UU8cCYoKT0GXwHqbQuxU87omQ'
-SOCIAL_AUTH_TWITTER_SECRET = '7ZdBKZYpEgt4M24f5TyOBqNGZcmKTnuTUS0sbBsQ8PYEI1gFmd'
-
-GOOGLE_OAUTH2_CLIENT_ID = '614025882253-2c0vtmn7i17f43o1upf20f14i89v0amq.apps.googleusercontent.com'
-GOOGLE_OAUTH2_CLIENT_SECRET = '5FZw5sM2FI8x-WUL2aEmuHJA'
-
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
-SOCIAL_AUTH_LOGIN_URL = '/'

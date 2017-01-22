@@ -5,7 +5,7 @@ from django.shortcuts import render
 from rest_framework import viewsets
 
 from serializers import UserSerializer, GroupSerializer, PostSerializer
-from .models import Post
+from .models import Post, Author
 
 
 # Create your views here.
@@ -52,6 +52,7 @@ def posts(request):
 def post(request, post_id):
     try:
         post = Post.objects.get(id=post_id)
+        authors = Author.objects.all().filter(id=post_id)
         return render(request, 'post.html', {"post": post})
     except Post.DoesNotExist:
         return index(request)

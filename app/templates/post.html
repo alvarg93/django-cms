@@ -3,7 +3,7 @@
 <div class="post-heading">
     <h1>{{post.title}}</h1>
     <h2 class="subheading">{{post.exerpt}}</h2>
-    <span class="meta">Posted by <a href="#">{{post.author}}</a> on {{post.created_at}}</span>
+    <span class="meta">Posted by <a href="#">{{post.author.name}}</a> on {{post.created_at}}</span>
 </div>
 {% endblock %}
 {% block content %}
@@ -32,5 +32,15 @@
             <a href="{% url 'posts' %}">All Posts &rarr;</a>
         </li>
     </ul>
+
+    {% if request.user.is_authenticated %}
+    {% if request.user.first_name %}
+    <h1>Witaj {{request.user.first_name}}!</h1>
+    {% else %}
+    <h1>Witaj {{request.user.username}}!</h1>
+    {% endif %}
+    {% else %}
+    <h1>Witaj towarzyszu!</h1>
+    {% endif %}
 </div>
 {% endblock %}

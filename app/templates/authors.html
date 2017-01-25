@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
-{% block heading %}
-<div class="post-heading">
-    <h1>{{author.name}}</h1>
-    <h2 class="subheading">{{author.short_desc}}</h2>
-</div>
-{% endblock %}
-{% block content %}
+{% block title %}
+Meet our masterminds
+{%endblock%}
 
+{% block content %}
 <div class="col-lg-12 col-lg-offset-0 col-md-10 col-md-offset-1 container">
+    <h1>Our authors</h1>
     <div class="row">
+        {% for author in authors %}
         <div class="col-lg-3 col-sm-6">
             <div class="card hovercard">
                 <div class="cardheader" style="background: url('{{author.background_photo.url}}')">
@@ -52,22 +51,22 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-8 col-lg-offset-0 col-md-10 col-md-offset-1 container">
-            <h3>Bio</h3>
-            <p>
-            <blockquote>{{author.bio|safe}}</blockquote>
-            </p>
-        </div>
+        {% endfor %}
     </div>
-</div>
-<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <ul class="pager">
+        {% if posts.has_next %}
         <li class="next">
-            <a href="{% url 'posts' %}">All Posts By This Author &rarr;</a>
+            <a href="?page={{ posts.next_page_number }}">Next Posts &rarr;</a>
         </li>
+        {% endif %}
         <li class="next">
-            <a href="{% url 'authors' %}">&larr; All Authors</a>
+            <span class="post-meta">Page {{ posts.number }} of {{ posts.paginator.num_pages }}.</span>
         </li>
+        {% if posts.has_previous %}
+        <li class="next">
+            <a href="?page={{ posts.previous_page_number }}">&larr; Previous Posts</a>
+        </li>
+        {% endif %}
     </ul>
 </div>
 {% endblock %}

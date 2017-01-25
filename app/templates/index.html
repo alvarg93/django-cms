@@ -37,7 +37,7 @@
                 </div>
                 <div class="info">
                     <div class="title">
-                        <a target="_blank" href="#">{{author.name}}</a>
+                        <a href="{% url 'author' author.id %}">{{author.name}}</a>
                     </div>
                     <div class="desc">{{author.short_desc}}</div>
                 </div>
@@ -73,5 +73,11 @@
         </div>
         {% endfor %}
     </div>
+
+    <ul class="pager">
+        <li class="next">
+            <a href="{% url 'authors' %}">All Authors &rarr;</a>
+        </li>
+    </ul>
 </div>
 {% endblock %}

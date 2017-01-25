@@ -1,16 +1,10 @@
 {% extends 'base.html' %}
+{% block title %}
+Dive into our content
+{%endblock%}
 
 {% block content %}
 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-    <!--{% if request.user.is_authenticated %}-->
-    <!--{% if request.user.first_name %}-->
-    <!--<h1>Witaj {{request.user.first_name}}!</h1>-->
-    <!--{% else %}-->
-    <!--<h1>Witaj {{request.user.username}}!</h1>-->
-    <!--{% endif %}-->
-    <!--{% else %}-->
-    <!--<h1>Witaj towarzyszu!</h1>-->
-    <!--{% endif %}-->
     {% for post in posts %}
     <div class="post-preview">
         <a href="{% url 'post' post.id %}">

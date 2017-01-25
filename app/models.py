@@ -65,3 +65,9 @@ def unpublish(modeladmin, request, queryset):
 
 
 unpublish.short_description = "Unpublish selected posts"
+
+
+class Comment(models.Model):
+    content = models.CharField(max_length=200)
+    author = models.ForeignKey(User, null=True, blank=True, default=None, on_delete=models.SET_NULL)
+    created_at = models.DateTimeField(default=timezone.now)

@@ -53,9 +53,32 @@ def posts(request):
     return render(request, 'posts.html', {"posts": posts})
 
 
+def authors(request):
+    authors = Author.objects.all().order_by('-created_at')
+    paginator = Paginator(authors, 20)  # Show 10 contacts per page
+    page = request.GET.get('page')
+    try:
+        authors = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        authors = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        authors = paginator.page(paginator.num_pages)
+    return render(request, 'authors.html', {"authors": authors})
+
+
 def post(request, post_id):
     try:
         post = Post.objects.get(id=post_id)
         return render(request, 'post.html', {"post": post})
+    except Post.DoesNotExist:
+        return index(request)
+
+
+def author(request, author_id):
+    try:
+        author = Author.objects.get(id=author_id)
+        return render(request, 'author.html', {"author": author})
     except Post.DoesNotExist:
         return index(request)

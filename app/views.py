@@ -26,8 +26,9 @@ class PostViewSet(viewsets.ModelViewSet):
 
 
 def index(request):
-    posts = Post.objects.all().order_by('-created_at')[:5]
-    return render(request, 'index.html', {"posts": posts})
+    posts = Post.objects.all().filter(is_published=True).order_by('-created_at')[:5]
+    authors = Author.objects.all().order_by('-created_at')[:5]
+    return render(request, 'index.html', {"posts": posts, "authors": authors})
 
 
 def test(request, text):
@@ -35,7 +36,7 @@ def test(request, text):
 
 
 def posts(request):
-    posts = Post.objects.all()
+    posts = Post.objects.all().filter(is_published=True).order_by('-created_at')
     paginator = Paginator(posts, 10)  # Show 10 contacts per page
     page = request.GET.get('page')
     try:
@@ -52,7 +53,6 @@ def posts(request):
 def post(request, post_id):
     try:
         post = Post.objects.get(id=post_id)
-        authors = Author.objects.all().filter(id=post_id)
         return render(request, 'post.html', {"post": post})
     except Post.DoesNotExist:
         return index(request)

@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div class="col-lg-12 col-lg-offset-0 col-md-10 col-md-offset-1">
+    <h1>Latest posts</h1>
     {% for post in posts %}
     <div class="post-preview">
         <a href="{% url 'post' post.id %}">
@@ -22,5 +23,57 @@
             <a href="{% url 'posts' %}">All Posts &rarr;</a>
         </li>
     </ul>
+</div>
+<div class="col-lg-12 col-lg-offset-0 col-md-10 col-md-offset-1 container">
+    <h1>Latest posts</h1>
+    <div class="row">
+        {% for author in authors %}
+        <div class="col-lg-3 col-sm-6">
+            <div class="card hovercard">
+                <div class="cardheader">
+                </div>
+                <div class="avatar">
+                    <img alt="" src="http://lorempixel.com/100/100/people/9/">
+                </div>
+                <div class="info">
+                    <div class="title">
+                        <a target="_blank" href="http://scripteden.com/">{{author.name}}</a>
+                    </div>
+                    <div class="desc">{{author.bio}}</div>
+                    <div class="desc">Curious developer</div>
+                    <div class="desc">Tech geek</div>
+                </div>
+                <div class="bottom">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

@@ -17,30 +17,10 @@
     </div>
 </article>
 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-    <!--{% if request.user.is_authenticated %}-->
-    <!--{% if request.user.first_name %}-->
-    <!--<h1>Witaj {{request.user.first_name}}!</h1>-->
-    <!--{% else %}-->
-    <!--<h1>Witaj {{request.user.username}}!</h1>-->
-    <!--{% endif %}-->
-    <!--{% else %}-->
-    <!--<h1>Witaj towarzyszu!</h1>-->
-    <!--{% endif %}-->
-    <!-- Pager -->
     <ul class="pager">
         <li class="next">
             <a href="{% url 'posts' %}">All Posts &rarr;</a>
         </li>
     </ul>
-
-    {% if request.user.is_authenticated %}
-    {% if request.user.first_name %}
-    <h1>Witaj {{request.user.first_name}}!</h1>
-    {% else %}
-    <h1>Witaj {{request.user.username}}!</h1>
-    {% endif %}
-    {% else %}
-    <h1>Witaj towarzyszu!</h1>
-    {% endif %}
 </div>
 {% endblock %}

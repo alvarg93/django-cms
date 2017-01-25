@@ -25,23 +25,21 @@
     </ul>
 </div>
 <div class="col-lg-12 col-lg-offset-0 col-md-10 col-md-offset-1 container">
-    <h1>Latest posts</h1>
+    <h1>Our authors</h1>
     <div class="row">
         {% for author in authors %}
         <div class="col-lg-3 col-sm-6">
             <div class="card hovercard">
-                <div class="cardheader">
+                <div class="cardheader" style="background: url('{{author.background_photo.url}}')">
                 </div>
                 <div class="avatar">
-                    <img alt="" src="http://lorempixel.com/100/100/people/9/">
+                    <img alt="" src="{{ author.profile_photo.url }}">
                 </div>
                 <div class="info">
                     <div class="title">
-                        <a target="_blank" href="http://scripteden.com/">{{author.name}}</a>
+                        <a target="_blank" href="#">{{author.name}}</a>
                     </div>
-                    <div class="desc">{{author.bio}}</div>
-                    <div class="desc">Curious developer</div>
-                    <div class="desc">Tech geek</div>
+                    <div class="desc">{{author.short_desc}}</div>
                 </div>
                 <div class="bottom">
                     <ul class="list-inline text-center">

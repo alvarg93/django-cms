@@ -115,6 +115,8 @@ REST_FRAMEWORK = {
     ],
     'PAGE_SIZE': 10
 }
+MEDIA_ROOT = 'app/static/images/'
+MEDIA_URL = '/static/images/'
 STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/'

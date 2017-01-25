@@ -25,9 +25,12 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
 
 
+def getAuthors(post):
+    return post.author
+
 def index(request):
     posts = Post.objects.all().filter(is_published=True).order_by('-created_at')[:5]
-    authors = Author.objects.all().order_by('-created_at')[:5]
+    authors = Author.objects.all().order_by('-created_at')[:4]
     return render(request, 'index.html', {"posts": posts, "authors": authors})
 
 

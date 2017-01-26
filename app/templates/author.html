@@ -61,13 +61,39 @@
     </div>
 </div>
 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <h3>Posts by this author</h3>
+    {% for post in posts %}
+    <div class="post-preview">
+        <a href="{% url 'post' post.id %}">
+            <h2 class="post-title">
+                {{post.title}}
+            </h2>
+            <h3 class="post-subtitle">
+                {{post.exerpt|safe}}
+            </h3>
+            <p class="post-meta">Posted by <a href="#">{{post.author.name}}</a> on {{post.created_at}}</p>
+        </a>
+    </div>
+    <hr>
+    {% endfor %}
+    <!-- Pager -->
     <ul class="pager">
-        <li class="next">
-            <a href="{% url 'posts' %}">All Posts By This Author &rarr;</a>
-        </li>
-        <li class="next">
+        <li class="previous">
             <a href="{% url 'authors' %}">&larr; All Authors</a>
         </li>
+        {% if posts.has_next %}
+        <li class="next">
+            <a href="?page={{ posts.next_page_number }}">Next &rarr;</a>
+        </li>
+        {% endif %}
+        <li class="next">
+            <span class="post-meta">Page {{ posts.number }} of {{ posts.paginator.num_pages }}.</span>
+        </li>
+        {% if posts.has_previous %}
+        <li class="next">
+            <a href="?page={{ posts.previous_page_number }}">&larr; Previous</a>
+        </li>
+        {% endif %}
     </ul>
 </div>
 {% endblock %}

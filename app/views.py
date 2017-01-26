@@ -98,7 +98,7 @@ def post(request, post_id):
 def author(request, author_id):
     try:
         author = Author.objects.get(id=author_id)
-        posts = author.post_set.all()
+        posts = author.post_set.all().filter(is_published=True)
         paginator = Paginator(posts, 5)  # Show 4 contacts per page
         page = request.GET.get('page')
         try:
@@ -113,17 +113,3 @@ def author(request, author_id):
         return render(request, 'author.html', {"author": author, "posts": posts})
     except Post.DoesNotExist:
         return index(request)
-
-
-def post_comment(request):
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return redirect(request.META['HTTP_REFERER'])
-    else:
-        form = CommentForm()
-
-    return render(request, request.META['HTTP_REFERER'], {'form': form})

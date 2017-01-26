@@ -13,7 +13,8 @@
                 {{post.exerpt|safe}}
             </h3>
         </a>
-        <p class="post-meta">Posted by <a href="#">{{post.author.name}}</a> on {{post.created_at}}</p>
+        <p class="post-meta">Posted by <a href="{% url 'author' post.author.id %}">{{post.author.name}}</a> on
+            {{post.created_at}}</p>
     </div>
     <hr>
     {% endfor %}
@@ -43,30 +44,26 @@
                 </div>
                 <div class="bottom">
                     <ul class="list-inline text-center">
+                        {% if author.twitter_url %}
                         <li>
-                            <a href="#">
+                            <a href="{{author.twitter_url}}">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>
+                        {%endif%}
+                        {% if author.facebook_url %}
                         <li>
-                            <a href="#">
+                            <a href="{{author.facebook_url}}">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
+                        {%endif%}
                     </ul>
                 </div>
             </div>

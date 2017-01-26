@@ -17,6 +17,8 @@ class Author(models.Model):
     name = models.CharField(max_length=200)
     owner = models.ForeignKey(User, null=True, blank=True, default=None)
     bio = models.TextField()
+    facebook_url = models.CharField(max_length=200, default="", blank=True)
+    twitter_url = models.CharField(max_length=200, default="", blank=True)
     short_desc = models.CharField(max_length=80, default="")
     created_at = models.DateTimeField(default=timezone.now)
     profile_photo = models.ImageField(upload_to=user_directory_path,

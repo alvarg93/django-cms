@@ -14,7 +14,8 @@ Dive into our content
             <h3 class="post-subtitle">
                 {{post.exerpt|safe}}
             </h3>
-            <p class="post-meta">Posted by <a href="#">{{post.author.name}}</a> on {{post.created_at}}</p>
+            <p class="post-meta">Posted by <a href="{% url 'author' post.author.id %}">{{post.author.name}}</a> on
+                {{post.created_at}}</p>
         </a>
     </div>
     <hr>

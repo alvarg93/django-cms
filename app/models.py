@@ -38,6 +38,13 @@ class Post(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     is_published = models.BooleanField(default=False)
 
+
+class Comment(models.Model):
+    comment = models.TextField(max_length=200, default="")
+    post = models.ForeignKey(Post, null=True, blank=True, default=None)
+    author = models.ForeignKey(User, null=True, blank=True, default=None, on_delete=models.SET_NULL)
+    created_at = models.DateTimeField(default=timezone.now)
+
 def duplicate(modeladmin, request, queryset):
     for object in queryset:
         object.id = None
@@ -65,9 +72,3 @@ def unpublish(modeladmin, request, queryset):
 
 
 unpublish.short_description = "Unpublish selected posts"
-
-
-class Comment(models.Model):
-    content = models.CharField(max_length=200)
-    author = models.ForeignKey(User, null=True, blank=True, default=None, on_delete=models.SET_NULL)
-    created_at = models.DateTimeField(default=timezone.now)

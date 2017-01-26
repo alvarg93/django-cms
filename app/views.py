@@ -1,10 +1,13 @@
 from django.contrib.auth.models import User, Group
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
+from django.shortcuts import redirect
 from django.shortcuts import render
+from django.utils import timezone
 from rest_framework import viewsets
 
 from serializers import UserSerializer, GroupSerializer, PostSerializer
+from .forms import CommentForm
 from .models import Post, Author
 
 
@@ -69,9 +72,25 @@ def authors(request):
 
 
 def post(request, post_id):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.created_at = timezone.now()
+            comment.post = Post.objects.get(id=post_id)
+            comment.save()
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return redirect('/posts/' + post_id)
+    else:
+        form = CommentForm()
+
     try:
         post = Post.objects.get(id=post_id)
-        return render(request, 'post.html', {"post": post})
+        comments = post.comment_set.all()
+        return render(request, 'post.html', {"post": post, 'form': form, 'comments': comments})
     except Post.DoesNotExist:
         return index(request)
 
@@ -82,3 +101,17 @@ def author(request, author_id):
         return render(request, 'author.html', {"author": author})
     except Post.DoesNotExist:
         return index(request)
+
+
+def post_comment(request):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return redirect(request.META['HTTP_REFERER'])
+    else:
+        form = CommentForm()
+
+    return render(request, request.META['HTTP_REFERER'], {'form': form})

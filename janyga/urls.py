@@ -12,7 +12,7 @@ router.register(r'posts', views.PostViewSet)
 urlpatterns = [
     url(r'^api/', include(router.urls)),
     url('', include('registration.backends.default.urls'), name="auth"),
-    # url('', include('social_django.urls', namespace='social')),
+    url('', include('social_django.urls', namespace='social')),
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name="index"),
     url(r'^posts/$', views.posts, name="posts"),
@@ -20,5 +20,6 @@ urlpatterns = [
     url(r'^posts/([0-9]+)/$', views.post, name="post"),
     url(r'^authors/([0-9]+)/$', views.author, name="author"),
     url(r'^test/(?P<text>\w{0,50})/?$', views.test, name="test", ),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
 ]

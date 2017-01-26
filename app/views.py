@@ -99,7 +99,7 @@ def author(request, author_id):
     try:
         author = Author.objects.get(id=author_id)
         posts = author.post_set.all()
-        paginator = Paginator(posts, 10)  # Show 10 contacts per page
+        paginator = Paginator(posts, 5)  # Show 4 contacts per page
         page = request.GET.get('page')
         try:
             posts = paginator.page(page)
